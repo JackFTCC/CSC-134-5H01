@@ -14,10 +14,15 @@
 #include "dnd.h"
 using namespace std;
 
+// DEFINE TO false TO SKIP ALL SAVES!
+static const bool SAVE = true;
+
+
 void main_menu();
 void main_menu_fake();
-void choice_front_door();
-void choice_back_door();
+void choice_prof();
+void battle_victory_Prof();
+void choice_adventure1();
 void choice_go_home();
 void choice_food();
 void choice_bed();
@@ -26,6 +31,8 @@ void experiencePoints(int xpGained);
 void save_progress(int choice);
 void displayCharacterAction();
 void battleWithEnemy(const std::string& currentClass, int& strength, const std::string& enemy);
+int get_saved_progress_for_player(const string& playerName);
+int savedState = 1;
 
 //NOTE - struct LevelData
 
@@ -90,20 +97,28 @@ void main_menu() {
   else if (currentClass == "Halfling"){
       emoji = "🔱";
   }
-
   if (lastChoice != 0 && firstLoad) {
       cout << "Resuming from your last choice: " << lastChoice << endl;
       firstLoad = false;  // Prevent message from appearing again
-//      switch (lastChoice) {
-//          case 1:
-//              choice_front_door();
-//              return;
-//          case 2:
-//              choice_go_home();
-//              return;
-//      }
+    switch (lastChoice) {
+          case 1:
+              choice_prof();
+              break;
+          case 2:
+              choice_adventure1();
+              break;
+          case 3:
+              choice_go_home();
+              break;
+          case 200:
+              battle_victory_Prof();
+              break;
+          default:
+              main_menu();
+              break;
+      }
   }
-
+  else{
   // Normal game start if no progress exists
   cout << "" << endl;
   cout << "Welcome " << currentPlayer << " the " << currentClass << "." << endl;
@@ -115,62 +130,49 @@ void main_menu() {
     cout << "Since you're a magic-user it gives you the immense power of abilites but you're weaker in health and physical combat." << endl;
   }
   else if (currentClass == "Thief"){
-      emoji = "Since you're a thief you're good at stealth and are really agile, but you're strength is weaker than most.";
+      cout << "Since you're a thief you're good at stealth and are really agile, but you're strength is weaker than most." <<endl;
   }
   else if (currentClass == "Cleric"){
-      emoji = "Since you're a cleric you are given the ability to heal people, and connect with nature. This comes with weaker health, but you have things to counteract that";
+      cout << "Since you're a cleric you are given the ability to heal people, and connect with nature. This comes with weaker health, but you have things to counteract that" << endl;
   }
   else if (currentClass == "Elf"){
-      emoji = "Since you're an elf you're good with bows and arrows, but you're more frail.";
+      cout << "Since you're an elf you're good with bows and arrows, but you're more frail." << endl;
   }
   else if (currentClass == "Dwarf"){
-      emoji = "Since you're a dwarf you're stronger and you have the ability to make armor more powerful!";
+      cout << "Since you're a dwarf you're stronger and you have the ability to make armor more powerful!"<< endl;
   }
   else if (currentClass == "Halfling"){
-      emoji = "Since you're a halfling you're a master with the spear.";
+      cout << "Since you're a halfling you're a master with the spear." << endl;
   }
+  cout << "Your journey begins here, the whole world ahead of you. What shall you do?" << endl;
   cout << "========================================" << endl;
   cout << emoji << "  : " << currentPlayer << " the " << currentClass << endl;
   if (partyMember){
       cout << "TODO" << endl;
   }
-  cout << "1. Try the front door" << endl;
-  cout << "2. Sneak around back" << endl;
+  cout << "1. Go find the professor to go explore" << endl;
+  cout << "2. Go Adventure" << endl;
   cout << "3. Forget it, and go home" << endl;
   cout << "4. Stats" << endl;
-  cout << "5. Test" << endl;
-  cout << "6. [Quit]" << endl;
   cout << "Choose: ";
 
   int choice;
   cin >> choice;
-  save_progress(choice); // Save progress at this step
+  if (SAVE) {save_progress(choice);}// Save progress at this step
   saveCharacter();
 
   switch (choice) {
       case 1:
-      case 2:
-      case 3:
-      case 5:
-          save_progress(choice);
-          break;
-  }
-
-  switch (choice) {
-      case 1:
-          choice_front_door();
+          choice_prof();
           break;
       case 2:
-          choice_back_door();
+          choice_adventure1();
           break;
       case 3:
           choice_go_home();
           break;
       case 4:
           displayCharacterAction();
-          break;
-      case 5:
-          choice_break_in();
           break;
       default:
           cout << "That's not a valid choice, please try again." << endl;
@@ -179,63 +181,105 @@ void main_menu() {
           break;
   }
 }
+}
 
 
 void displayCharacterAction(){
   displayCharacter();
   saveCharacter();
   cout << "Any Key: Go back \n" << endl;
-  cout << "2: Spend Points \n" << endl;
-  int choice;
+  string choice;
   cin >> choice;
-  switch (choice){
-    case 1:
-      main_menu();
-      break;
-    case 2:
-      spendStatPoints();
-      break;
-    default:
-    main_menu();
-    break;
+  main_menu();
   }
-}
 
-void choice_front_door() {
-  save_progress(1);
-  cout << "Try the front door." << endl;
-  cout << "It's locked. " << endl;
+void choice_prof() {
+  if (SAVE) {save_progress(1);}
+  if (savedState != 0){
+  cout << "You appear at the professor's door, to be a adventurer you must defeat him...in a battle!" << endl;}
+  else {
+    cout << "" << endl;
+  }
   cout << "Do you:" << endl;
-  cout << "1. Check around back" << endl;
+  cout << "1. Fight the Professor!" << endl;
   cout << "2. Give up and go home" << endl;
-  cout << "3. Break in" << endl;
   int choice;
+  string enemy;
   cout << "Choose: ";
   cin >> choice;
   switch (choice){
     case 1:
-      choice_back_door();
+    if (savedState != 0){
+      enemy = "Professor";
+      battleWithEnemy(currentClass, strength, enemy);
       break;
+    }
+    else {
+      cout << "He won't fight you again." << endl;
+      choice_prof();
+    }
     case 2:
       choice_go_home();
-      break;
-    case 3:
-      choice_break_in();
       break;
     default:
       cout << "That's not a valid choice, please try again." << endl;
       cin.ignore();
-      choice_front_door();
+      choice_prof();
       break;
   }
 }
 
-void choice_back_door() { 
-  save_progress(0);
-  cout << "You enter the house! Unfortunatley the owners were home..." << endl;
-  cout << "You've been arrested for breaking and entering." << endl; 
-  cout << "~~~~~ Arrested Ending ~~~~~" << endl;
-  cout << "           1/3        " << endl;
+void battle_victory_Prof(){
+  if (SAVE) {save_progress(200);}
+  savedState = 200;
+  cout << "He sends you off on your adventure and gives you a buff, you're ready" << endl;
+  cout << "Do you:" << endl;
+  cout << "1. Adventure!" << endl;
+  cout << "2. Give up and go home" << endl;
+  int choice;
+  string enemy;
+  cout << "Choose: ";
+  cin >> choice;
+  switch (choice){
+    case 1:
+      enemy = "Professor";
+      battleWithEnemy(currentClass, strength, enemy);
+      break;
+    case 2:
+      choice_go_home();
+      break;
+    default:
+      cout << "That's not a valid choice, please try again." << endl;
+      cin.ignore();
+      choice_prof();
+      break;
+  }
+}
+
+void choice_adventure1() { 
+  cout << "Nervous, you venture out..." << endl;
+  cout << "Do you:" << endl;
+  cout << "1. Continue Forward" << endl;
+  cout << "2. Use the scary forest path" << endl;
+  int choice;
+  string enemy;
+  cout << "Choose: ";
+  cin >> choice;
+  switch (choice){
+    case 1:
+      enemy = "GoblinLeader";
+      battleWithEnemy(currentClass, strength, enemy);
+      break;
+    case 2:
+      enemy = "Goblin";
+      battleWithEnemy(currentClass, strength, enemy);
+      break;
+    default:
+      cout << "That's not a valid choice, please try again." << endl;
+      cin.ignore();
+      choice_prof();
+      break;
+  }
 }
 
 void choice_go_home() {
@@ -258,7 +302,7 @@ void choice_go_home() {
     default:
       cout << "That's not a valid choice, please try again." << endl;
       cin.ignore();
-      choice_front_door();
+      choice_prof();
       break; 
   }
 }
@@ -289,8 +333,6 @@ void choice_break_in(){
 }
 
 void battle_victory_doorHouse(){
-  experiencePoints(500);
-  updateLevel();
   saveCharacter();
   main_menu();
 }
@@ -304,38 +346,63 @@ void battle_victory_doorHouse(){
 //NOTE - Save Progress
 
 void save_progress(int choice) {
-  if (currentPlayer.empty()) {
-      cerr << "Error: No player name found. Progress not saved!" << endl;
-      return;
-  }
+    if (currentPlayer.empty()) {
+        cerr << "Error: No player name found. Progress not saved!" << endl;
+        return;
+    }
 
-  map<string, string> progressMap;  // Map will now store encrypted choices
+    map<string, string> progressMap;  // Map to store encrypted choices
 
-  // Read existing progress data
-  ifstream progressFileRead("player_progress.txt");
-  if (progressFileRead) {
-      string name, encryptedChoice;
-      while (progressFileRead >> name >> encryptedChoice) {
-          progressMap[name] = encryptedChoice;  // Store existing encrypted progress
-      }
-      progressFileRead.close();
-  }
+    // Read existing progress data from the file
+    ifstream progressFileRead("player_progress.txt", ios::in);
+    if (progressFileRead) {
+        string name, encryptedChoice;
+        while (progressFileRead >> name >> encryptedChoice) {
+            progressMap[name] = encryptedChoice;  // Store existing encrypted progress
+        }
+        progressFileRead.close();
+    }
 
-  // Encrypt current player's progress
-  string encryptedChoice = encryptStats(to_string(choice));
-  progressMap[currentPlayer] = encryptedChoice;  // Update progress for the current player
+    // Encrypt the current player's progress
+    string encryptedChoice = encryptStats(to_string(choice));
+    progressMap[currentPlayer] = encryptedChoice;  // Update progress for the current player
 
-  // Write updated progress back to file
-  ofstream progressFileWrite("player_progress.txt");
-  if (progressFileWrite) {
-      for (const auto& entry : progressMap) {
-          progressFileWrite << entry.first << " " << entry.second << endl;  // Write encrypted data
-      }
-      progressFileWrite.close();
-  } else {
-      cerr << "Error: Unable to save progress!" << endl;
-  }
+    // Write the updated progress back to the file
+    ofstream progressFileWrite("player_progress.txt", ios::out | ios::trunc);  // Open file for writing and truncate old content
+    if (progressFileWrite) {
+        for (const auto& entry : progressMap) {
+            progressFileWrite << entry.first << " " << entry.second << endl;  // Write encrypted data
+        }
+        progressFileWrite.close();
+        cout << "Progress saved for " << currentPlayer << endl;
+    } else {
+        cerr << "Error: Unable to save progress!" << endl;
+    }
 }
+
+int get_saved_progress_for_player(const string& playerName) {
+    ifstream progressFile("player_progress.txt");
+    if (!progressFile) {
+        cerr << "Warning: Could not open progress file." << endl;
+        return 0;  // Default if no file exists
+    }
+
+    string name, encryptedChoice;
+    while (progressFile >> name >> encryptedChoice) {
+        if (name == playerName) {
+            string decryptedChoice = decryptStats(encryptedChoice);
+            try {
+                return stoi(decryptedChoice);
+            } catch (...) {
+                cerr << "Error: Corrupted save data for player " << playerName << endl;
+                return 0;
+            }
+        }
+    }
+
+    return 0; // No save found for this player
+}
+
 
 //NOTE - Enemy Battle
 
@@ -349,11 +416,36 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
     if (enemyStrength < 5){
       enemyStrength += 3;
     }
-    else if (enemyStrength > 15){
+    else if (enemyStrength < 13 && enemyStrength > 15){
       enemyStrength -= 3;
     }
   }
 
+  if (enemy == "Professor"){
+    if (enemyStrength < 2){
+      enemyStrength += 4;
+    }
+    else if (enemyStrength < 10 && enemyStrength > 20){
+      enemyStrength -= 3;
+    }
+  }
+
+  if (enemy == "GoblinLeader"){
+    if (enemyStrength > 20){
+      enemyStrength = 20;
+    }
+  }
+
+  if (enemy == "Goblin"){
+    if (enemyStrength < 2){
+      enemyStrength += 4;
+    }
+    else if (enemyStrength < 15 && enemyStrength > 20){
+      enemyStrength -= 5;
+    }
+  }
+
+  std::cout << "" << std::endl;
   std::cout << enemy << " Strength: " << enemyStrength << std::endl;
 
   // Class-based adjustments
@@ -384,8 +476,18 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
       }
       std::cout << "You Roll " << youRoll << "!" << std::endl;
   }
+  int saveState = savedState;
+  if (saveState >= 200) {
+      std::cout << "You gain +1 from the professor bonus!" << std::endl;
+      youRoll += 1;
+      if (youRoll > 20){
+        youRoll = 20;
+      }
+      std::cout << "Your New Roll " << youRoll << "!" << std::endl;
+      std::cout << "" << std::endl;
+  }
   else {
-      std::cout << "You Roll " << youRoll << "!" << std::endl;
+      std::cout << "" << std::endl;
   }
 
   std::cout << enemy << " Rolls " << enemyRoll << "!" << std::endl;
@@ -419,43 +521,31 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
       choice_go_home();
     }
   }
+  if (enemy == "Professor"){
+    if (youRoll > enemyRoll || youRoll == enemyRoll){
+      cout << "You defeat the Professor!" << endl;
+      battle_victory_Prof();
+    }
+    else {
+      savedState = 0;
+      cout << "You got kicked out..." << endl;
+      choice_prof();
+    }
+  }
+  if (enemy == "Goblin Leader"){
+    if (youRoll > enemyRoll || youRoll == enemyRoll){
+      cout << "How did you defeat a goblin leader? I literally made this impossible." << endl;
+      battle_victory_Prof();
+    }
+    else {
+      cout << "You die." << endl;
+      choice_go_home();
+    }
+  }
 }
 
 //NOTE - Experience
 
-void experiencePoints(int xpGained) {
-  cout << "You gain " << xpGained << " XP!" << endl;
-  experience += xpGained;
-
-  int newLevel = level;
-  int newProfBonus = 0;
-
-  // Check for level-up and set new level
-  for (int i = 19; i >= 0; --i) {
-      if (experience >= levelTable[i].xpThreshold) {
-          newLevel = levelTable[i].level;
-          newProfBonus = levelTable[i].proficiencyBonus;
-          break;
-      }
-  }
-
-  if (newLevel > level) {
-      level = newLevel;
-      
-
-      cout << "Level Up! You are now Level " << level << "!" << endl;
-      saveCharacter();
-  }
-
-  // Update current XP display
-  int nextLevelXP = (level < 20) ? levelTable[level].xpThreshold : levelTable[19].xpThreshold;
-  cout << "Current XP: " << experience << " / " << nextLevelXP << " (Level " << level << ")" << endl;
-
-  // Subtract XP once the level-up occurs (to prevent level-up from happening too many times)
-  if (experience >= levelTable[level - 1].xpThreshold) {
-      experience -= levelTable[level - 1].xpThreshold;
-  }
-}
 
 
 

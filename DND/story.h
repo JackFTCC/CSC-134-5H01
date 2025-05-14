@@ -239,8 +239,7 @@ void battle_victory_Prof(){
   cin >> choice;
   switch (choice){
     case 1:
-      enemy = "Professor";
-      battleWithEnemy(currentClass, strength, enemy);
+      choice_adventure1();
       break;
     case 2:
       choice_go_home();
@@ -377,7 +376,7 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
   }
 
   if (enemy == "GoblinLeader"){
-    if (enemyStrength > 20){
+    if (enemyStrength != 20){
       enemyStrength = 20;
     }
   }
@@ -422,6 +421,12 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
       }
       std::cout << "You Roll " << youRoll << "!" << std::endl;
   }
+  else {
+      if (youRoll < 0){
+        youRoll = 0;
+      }
+      std::cout << "You Roll " << youRoll << "!" << std::endl;
+  }
   int saveState = savedState;
   if (saveState >= 200) {
       std::cout << "You gain +1 from the professor bonus!" << std::endl;
@@ -450,7 +455,7 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
   }
   else if (enemyStrength > strength) {
       youRoll = youRoll - (enemyStrength - strength);
-      std::cout << "Because you're weaker, the" << enemy << "weakens your roll!" << std::endl;
+      std::cout << "Because you're weaker, the " << enemy << " weakens your roll!" << std::endl;
       if (youRoll < 0) {
           std::cout << "Your New Roll " << 0 << "!" << std::endl;
       } else {
@@ -468,7 +473,7 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
       choice_prof();
     }
   }
-  if (enemy == "Goblin Leader"){
+  if (enemy == "GoblinLeader"){
     if (youRoll > enemyRoll || youRoll == enemyRoll){
       cout << "How did you defeat a goblin leader? I literally made this impossible." << endl;
       battle_victory_Prof();

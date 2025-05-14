@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DND Text Adventure - Characters</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>DND Text Adventure</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="characters.html" class="active">Characters</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="credits.html">Credits</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Character Classes</h2>
+            <p class="lead">Choose your path and create a legendary hero</p>
+        </section>
+
+        <section>
+            <h2>Character Creation</h2>
+            <p>In DND Text Adventure, your journey begins with character creation. You'll choose a class that defines your character's abilities and playstyle, then roll for your starting attributes. As you progress through the game, you'll gain experience, level up, and earn stat points to further customize your character.</p>
+            
+            <div class="command-line">
+                <p class="command-prompt">$ ./main_game</p>
+                <p>Please enter your name: NewHero</p>
+                <p>Player not found. Creating a new player...</p>
+                <p>Please choose a class from the list.</p>
+                <p>1: Fighter</p>
+                <p>2: Magic-User</p>
+                <p>3: Thief</p>
+                <p>4: Cleric</p>
+                <p>5: Elf</p>
+                <p>6: Dwarf</p>
+                <p>7: Halfling</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Available Classes</h2>
+            <div class="class-cards">
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">⚔️</span> Fighter
+                    </div>
+                    <div class="class-card-body">
+                        <p>Masters of combat who rely on strength and weapon skills.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>+3 bonus to combat rolls</li>
+                            <li>High physical durability</li>
+                            <li>Excels at physical challenges</li>
+                        </ul>
+                        <p><em>"Since you're a fighter it makes you better at using physical abilities and brute force!"</em></p>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">🧙</span> Magic-User
+                    </div>
+                    <div class="class-card-body">
+                        <p>Wielders of arcane power who sacrifice physical prowess for magical might.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>Access to powerful spells</li>
+                            <li>High intelligence</li>
+                            <li>-5 penalty to physical combat</li>
+                        </ul>
+                        <p><em>"Since you're a magic-user it gives you the immense power of abilities but you're weaker in health and physical combat."</em></p>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">🗡️</span> Thief
+                    </div>
+                    <div class="class-card-body">
+                        <p>Masters of stealth and agility who excel at subterfuge.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>High dexterity</li>
+                            <li>Good at stealth challenges</li>
+                            <li>-3 penalty to direct combat</li>
+                        </ul>
+                        <p><em>"Since you're a thief you're good at stealth and are really agile, but your strength is weaker than most."</em></p>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">💉</span> Cleric
+                    </div>
+                    <div class="class-card-body">
+                        <p>Divine spellcasters who can heal wounds and harness the power of nature.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>Healing abilities</li>
+                            <li>Connection to nature</li>
+                            <li>Balanced combat capabilities</li>
+                        </ul>
+                        <p><em>"Since you're a cleric you are given the ability to heal people, and connect with nature. This comes with weaker health, but you have things to counteract that."</em></p>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">🏹</span> Elf
+                    </div>
+                    <div class="class-card-body">
+                        <p>Agile and graceful beings who excel at ranged combat.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>Skilled with bows</li>
+                            <li>High dexterity</li>
+                            <li>Lower physical durability</li>
+                        </ul>
+                        <p><em>"Since you're an elf you're good with bows and arrows, but you're more frail."</em></p>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">🔨</span> Dwarf
+                    </div>
+                    <div class="class-card-body">
+                        <p>Hardy warriors with natural strength and crafting abilities.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>Enhanced strength</li>
+                            <li>Improved armor effectiveness</li>
+                            <li>Physical resilience</li>
+                        </ul>
+                        <p><em>"Since you're a dwarf you're stronger and you have the ability to make armor more powerful!"</em></p>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-card-header">
+                        <span class="class-card-icon">🔱</span> Halfling
+                    </div>
+                    <div class="class-card-body">
+                        <p>Small but skilled fighters who specialize in spear combat.</p>
+                        <h4>Specialties:</h4>
+                        <ul class="stat-list">
+                            <li>Mastery with spears</li>
+                            <li>Balanced attributes</li>
+                            <li>Versatile combat style</li>
+                        </ul>
+                        <p><em>"Since you're a halfling you're a master with the spear."</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Character Attributes</h2>
+            <p>Every character has six primary attributes that determine their capabilities:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Effects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Strength</td>
+                        <td>Physical power and combat ability</td>
+                        <td>Improves physical damage and reduces enemy combat effectiveness</td>
+                    </tr>
+                    <tr>
+                        <td>Dexterity</td>
+                        <td>Agility, reflexes, and coordination</td>
+                        <td>Influences combat outcomes and stealth capabilities</td>
+                    </tr>
+                    <tr>
+                        <td>Constitution</td>
+                        <td>Health, stamina, and endurance</td>
+                        <td>Affects overall health and physical resilience</td>
+                    </tr>
+                    <tr>
+                        <td>Intelligence</td>
+                        <td>Knowledge, memory, and reasoning</td>
+                        <td>Important for magic-users and problem-solving challenges</td>
+                    </tr>
+                    <tr>
+                        <td>Wisdom</td>
+                        <td>Perception, intuition, and willpower</td>
+                        <td>Helps with decision-making and magical resistance</td>
+                    </tr>
+                    <tr>
+                        <td>Charisma</td>
+                        <td>Personality, leadership, and persuasiveness</td>
+                        <td>Influences social interactions (referred to as "Rizz" in the game)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Leveling and Stat Points</h2>
+            <p>As you gain experience points (XP) from completing challenges and defeating enemies, your character will level up. Each level provides:</p>
+            <ul>
+                <li>Increased overall effectiveness</li>
+                <li>One stat point to assign to any attribute</li>
+                <li>Periodic increases to your proficiency bonus</li>
+            </ul>
+            
+            <div class="command-line">
+                <p>You gain 1000 XP!</p>
+                <p>🆙 Level Up! You are now Level 3!</p>
+                <p>🎁 You received 1 stat point(s)!</p>
+                <p>Current XP: 100 / 2700 (Level 3)</p>
+            </div>
+            
+            <p>Level progression follows a standard D&D-style XP curve, with higher levels requiring increasingly more experience points to attain.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023-2024 DND Text Adventure | A game by Jack Sollisch, enhanced with Claude</p>
+        <p class="small">Created for CSC-134 | <a href="credits.html">View Credits</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

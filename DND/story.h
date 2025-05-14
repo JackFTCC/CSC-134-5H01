@@ -107,10 +107,7 @@ void main_menu() {
           case 2:
               choice_adventure1();
               break;
-          case 3:
-              choice_go_home();
-              break;
-          case 200:
+          case 5:
               battle_victory_Prof();
               break;
           default:
@@ -230,7 +227,7 @@ void choice_prof() {
 }
 
 void battle_victory_Prof(){
-  if (SAVE) {save_progress(200);}
+  if (SAVE) {save_progress(5);}
   savedState = 200;
   cout << "He sends you off on your adventure and gives you a buff, you're ready" << endl;
   cout << "Do you:" << endl;
@@ -257,6 +254,7 @@ void battle_victory_Prof(){
 }
 
 void choice_adventure1() { 
+  save_progress(2); 
   cout << "Nervous, you venture out..." << endl;
   cout << "Do you:" << endl;
   cout << "1. Continue Forward" << endl;
@@ -282,59 +280,16 @@ void choice_adventure1() {
   }
 }
 
+void battle_victory_Goblin(){
+  save_progress(0);
+  cout << "You defeated the Goblin!"<< endl;
+  cout << "Thank you for playing my early demo!"<< endl;
+}
+
 void choice_go_home() {
-  save_progress(2); 
-  cout << "You go home." << endl;
-  cout << "You're hungry " << endl;
-  cout << "Do you:" << endl;
-  cout << "1. Go out for food" << endl;
-  cout << "2. Go to bed" << endl;
-  int choice;
-  cout << "Choose: ";
-  cin >> choice;
-  switch (choice){
-    case 1:
-      choice_food();
-      break;
-    case 2:
-      choice_bed();
-      break;
-    default:
-      cout << "That's not a valid choice, please try again." << endl;
-      cin.ignore();
-      choice_prof();
-      break; 
-  }
-}
-
-void choice_food(){
-  save_progress(0);
-  cout << "You drive for food..." << endl;
-  cout << "Unfortunatley, since you live in a town where entering random houses is normal, someone stole the lugnuts on your tires causing them to fly off while driving" << endl; 
-  cout << "~~~~~ Hungry Ending ~~~~~" << endl;
-  cout << "          3/3        " << endl;
-}
-
-void choice_bed(){
-  save_progress(0);
-  cout << "You go to bed..." << endl;
-  cout << "You live to see the next day!" << endl; 
-  cout << "~~~~~ Lazy Ending ~~~~~" << endl;
-  cout << "          2/3        " << endl;
-}
-
-void choice_break_in(){
-  save_progress(0);
-  srand(time(0));
-  string enemy = "Door";
-  
-  battleWithEnemy(currentClass, strength, enemy);
-  saveCharacter();
-}
-
-void battle_victory_doorHouse(){
-  saveCharacter();
-  main_menu();
+  save_progress(0); 
+  cout << "You tried your best but not hard enough."<< endl;
+  cout << "Thank you for playing my early demo!"<< endl;
 }
 
 //!SECTION
@@ -411,15 +366,6 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
   int youRoll = rollDice() + rollDice();
   int enemyRoll = rollDice() + rollDice();
   int enemyStrength = rollDice() + rollDice();
-
-  if (enemy == "Door"){
-    if (enemyStrength < 5){
-      enemyStrength += 3;
-    }
-    else if (enemyStrength < 13 && enemyStrength > 15){
-      enemyStrength -= 3;
-    }
-  }
 
   if (enemy == "Professor"){
     if (enemyStrength < 2){
@@ -511,16 +457,6 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
           std::cout << "Your New Roll " << youRoll << "!" << std::endl;
       }
   }
-  if (enemy == "Door"){
-    if (youRoll > enemyRoll || youRoll == enemyRoll){
-      cout << "You break it down!" << endl;
-      battle_victory_doorHouse();
-    }
-    else {
-      cout << "You don't break down the door" << endl;
-      choice_go_home();
-    }
-  }
   if (enemy == "Professor"){
     if (youRoll > enemyRoll || youRoll == enemyRoll){
       cout << "You defeat the Professor!" << endl;
@@ -540,6 +476,15 @@ void battleWithEnemy(const std::string& currentClass, int& strength, const std::
     else {
       cout << "You die." << endl;
       choice_go_home();
+    }
+  }
+  if (enemy == "Goblin"){
+    if (youRoll > enemyRoll || youRoll == enemyRoll){
+      save_progress(0);
+      battle_victory_Goblin();
+    }
+    else {
+      cout << "Thank you for playing my early demo!"<< endl;
     }
   }
 }

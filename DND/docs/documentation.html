@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DND Text Adventure - Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>DND Text Adventure</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="characters.html">Characters</a></li>
+                <li><a href="documentation.html" class="active">Documentation</a></li>
+                <li><a href="credits.html">Credits</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Technical Documentation</h2>
+            <p class="lead">Developer guides and technical details</p>
+        </section>
+
+        <div class="doc-container">
+            <div class="doc-sidebar">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#compilation">Compilation</a></li>
+                    <li><a href="#file-structure">File Structure</a></li>
+                    <li><a href="#game-mechanics">Game Mechanics</a></li>
+                    <li><a href="#save-system">Save System</a></li>
+                    <li><a href="#testing-tools">Testing Tools</a></li>
+                    <li><a href="#bug-fixes">Bug Fixes & Improvements</a></li>
+                </ul>
+            </div>
+
+            <div class="doc-content">
+                <section id="getting-started">
+                    <h2>Getting Started</h2>
+                    <p>DND Text Adventure is a C++ console-based role-playing game that implements simplified Dungeons & Dragons mechanics. The game allows players to create characters, embark on adventures, and level up as they progress.</p>
+                    
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li>C++ compiler with C++11 support (g++, clang, etc.)</li>
+                        <li>Terminal or command prompt</li>
+                    </ul>
+                </section>
+
+                <section id="compilation">
+                    <h2>Compilation</h2>
+                    <p>To compile the main game, use the following command:</p>
+                    <div class="command-line">
+                        <p class="command-prompt">$ g++ -o main_game main_game.cpp -std=c++11</p>
+                    </div>
+                    
+                    <p>To compile the testing tools:</p>
+                    <div class="command-line">
+                        <p class="command-prompt">$ g++ -o test_dnd test_scaffold.cpp -std=c++11</p>
+                        <p class="command-prompt">$ g++ -o test_game test_game.cpp -std=c++11</p>
+                        <p class="command-prompt">$ g++ -o test_load test_load.cpp -std=c++11</p>
+                        <p class="command-prompt">$ g++ -o create_player sample_player_creator.cpp -std=c++11</p>
+                    </div>
+                </section>
+
+                <section id="file-structure">
+                    <h2>File Structure</h2>
+                    <p>The game consists of these key files:</p>
+                    <ul>
+                        <li><strong>main_game.cpp</strong> - Entry point for the main game</li>
+                        <li><strong>dnd.h</strong> - Core game mechanics and character management</li>
+                        <li><strong>story.h</strong> - Story progression and gameplay logic</li>
+                        <li><strong>test_scaffold.cpp</strong> - Testing framework for game features</li>
+                        <li><strong>sample_player_creator.cpp</strong> - Utility for creating test characters</li>
+                        <li><strong>test_game.cpp</strong> - Simplified game for testing specific features</li>
+                        <li><strong>test_load.cpp</strong> - Utility for testing character loading</li>
+                    </ul>
+                    
+                    <p>Data files generated during gameplay:</p>
+                    <ul>
+                        <li><strong>character_stats.txt</strong> - Stores encrypted character statistics</li>
+                        <li><strong>passwords.txt</strong> - Stores encrypted character passwords</li>
+                        <li><strong>player_progress.txt</strong> - Tracks player progress in the story</li>
+                    </ul>
+                </section>
+
+                <section id="game-mechanics">
+                    <h2>Game Mechanics</h2>
+                    
+                    <h3>Character System</h3>
+                    <p>Characters have six primary attributes (Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma) determined by rolling 3d6 for each during character creation. These attributes influence various aspects of gameplay, particularly combat.</p>
+                    
+                    <h3>Class System</h3>
+                    <p>Seven character classes are available, each with unique bonuses and penalties:</p>
+                    <ul>
+                        <li><strong>Fighter</strong>: +3 to combat rolls</li>
+                        <li><strong>Magic-User</strong>: -5 to combat rolls</li>
+                        <li><strong>Thief</strong>: -3 to combat rolls, but excels in stealth</li>
+                        <li><strong>Cleric</strong>: Balanced combat with healing abilities</li>
+                        <li><strong>Elf</strong>: Skilled with ranged weapons</li>
+                        <li><strong>Dwarf</strong>: Enhanced strength and armor</li>
+                        <li><strong>Halfling</strong>: Specializes in spear combat</li>
+                    </ul>
+                    
+                    <h3>Leveling System</h3>
+                    <p>Characters gain experience points (XP) through gameplay. Once enough XP is accumulated, they level up and receive stat points to allocate to attributes of their choice. The XP thresholds follow a progressive curve:</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>XP Required</th>
+                                <th>Proficiency Bonus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>0</td><td>+2</td></tr>
+                            <tr><td>2</td><td>300</td><td>+2</td></tr>
+                            <tr><td>3</td><td>900</td><td>+2</td></tr>
+                            <tr><td>4</td><td>2,700</td><td>+2</td></tr>
+                            <tr><td>5</td><td>6,500</td><td>+3</td></tr>
+                            <tr><td>6</td><td>14,000</td><td>+3</td></tr>
+                            <!-- Additional levels omitted for brevity -->
+                        </tbody>
+                    </table>
+                    
+                    <h3>Combat System</h3>
+                    <p>Combat is turn-based and uses dice rolls modified by character attributes and class bonuses. The basic formula is:</p>
+                    <pre>playerRoll = 2d6 + classBonuses
+enemyRoll = 2d6
+    
+if (playerStrength > enemyStrength)
+    enemyRoll -= (playerStrength - enemyStrength)
+else if (enemyStrength > playerStrength)
+    playerRoll -= (enemyStrength - playerStrength)
+    
+if (playerRoll >= enemyRoll)
+    player wins
+else
+    enemy wins</pre>
+                </section>
+
+                <section id="save-system">
+                    <h2>Save System</h2>
+                    <p>The game includes a robust save system that uses XOR encryption to protect player data:</p>
+                    
+                    <h3>Data Storage</h3>
+                    <p>Three main files are used for data persistence:</p>
+                    <ul>
+                        <li><strong>character_stats.txt</strong> - Stores character attributes in the format: <code>name class encrypted_stats</code></li>
+                        <li><strong>passwords.txt</strong> - Stores character credentials in the format: <code>name encrypted_password</code></li>
+                        <li><strong>player_progress.txt</strong> - Tracks story progress in the format: <code>name encrypted_progress_value</code></li>
+                    </ul>
+                    
+                    <h3>Encryption</h3>
+                    <p>The game uses a simple XOR encryption algorithm to protect character data:</p>
+                    <pre>string encryptDecrypt(const string &input, const string &key) {
+    string output = input;
+    for (size_t i = 0; i < input.size(); i++) {
+        output[i] = input[i] ^ key[i % key.size()];
+    }
+    return output;
+}</pre>
+
+                    <h3>Save Toggle Feature</h3>
+                    <p>A global flag <code>enableSaving</code> can be set to disable file operations during testing:</p>
+                    <pre>// Global flag to control file saving (default: true = enabled)
+static bool enableSaving = true;
+
+void saveCharacter() {
+    // Skip saving if disabled
+    if (!enableSaving) {
+        return;
+    }
+    
+    // Save operations...
+}</pre>
+                </section>
+
+                <section id="testing-tools">
+                    <h2>Testing Tools</h2>
+                    <p>Several utilities have been created to test various aspects of the game:</p>
+                    
+                    <h3>Test Scaffold</h3>
+                    <p>The <code>test_scaffold.cpp</code> provides a comprehensive testing framework for the game's core mechanics. It can be used to:</p>
+                    <ul>
+                        <li>Create test characters with specific attributes</li>
+                        <li>Test the leveling system</li>
+                        <li>Verify character saving and loading</li>
+                        <li>Test the battle system</li>
+                        <li>Verify the save toggle feature</li>
+                    </ul>
+                    
+                    <div class="command-line">
+                        <p class="command-prompt">$ ./test_dnd create_player Warrior Fighter 3</p>
+                        <p>Created sample player: Warrior the Fighter (Level 3)</p>
+                        <p>Stats: STR 12, DEX 10, CON 14, INT 9, WIS 11, CHA 8</p>
+                        <p>Experience: 910, Stat Points: 2</p>
+                        <p>Password: test123</p>
+                    </div>
+                    
+                    <h3>Sample Player Creator</h3>
+                    <p>The <code>sample_player_creator.cpp</code> utility provides an interactive way to create test characters:</p>
+                    <div class="command-line">
+                        <p class="command-prompt">$ ./create_player</p>
+                        <p>===== DND Sample Player Creator =====</p>
+                        <p>Enter player name: TestWarrior</p>
+                        <p>Choose a class (Fighter, Magic-User, Thief, Cleric, Elf, Dwarf, Halfling): Fighter</p>
+                        <p>Enter starting level (1-20): 5</p>
+                    </div>
+                    
+                    <h3>Test Game</h3>
+                    <p>The <code>test_game.cpp</code> utility provides a simplified version of the game for testing specific features:</p>
+                    <div class="command-line">
+                        <p class="command-prompt">$ ./test_game login Warrior test123</p>
+                        <p>Logging in as: Warrior</p>
+                        <p>Character loaded successfully!</p>
+                        <p>Character Stats:</p>
+                        <p>...</p>
+                    </div>
+                    <div class="command-line">
+                        <p class="command-prompt">$ ./test_game xp Warrior 1000</p>
+                        <p>Granting 1000 XP...</p>
+                        <p>You gain 1000 XP!</p>
+                        <p>...</p>
+                    </div>
+                </section>
+
+                <section id="bug-fixes">
+                    <h2>Bug Fixes & Improvements</h2>
+                    <p>Recent improvements to the codebase include:</p>
+                    
+                    <h3>Leveling System Fix</h3>
+                    <p>Fixed a critical issue where experience points were incorrectly reset after leveling up, preventing proper character progression. Now experience is properly accumulated:</p>
+                    <pre>// Old implementation (buggy)
+if (experience >= levelTable[level - 1].xpThreshold) {
+    experience -= levelTable[level - 1].xpThreshold;
+}
+
+// New implementation (fixed)
+// IMPORTANT: DO NOT reset experience after leveling up
+// We need to keep the total XP for proper progression through levels</pre>
+                    
+                    <h3>Stat Points Calculation</h3>
+                    <p>Added proper calculation of stat points when loading characters:</p>
+                    <pre>// Calculate stat points based on level (one per level above 1)
+statPoints = level - 1;</pre>
+                    
+                    <h3>Character Creation Fix</h3>
+                    <p>Fixed an issue where characters weren't being properly saved to the character_stats.txt file when created using test tools.</p>
+                    
+                    <h3>Save Toggle Feature</h3>
+                    <p>Added a global flag to enable/disable file operations for testing purposes.</p>
+                    
+                    <h3>Testing Framework</h3>
+                    <p>Created comprehensive tools for testing game mechanics, including character creation, experience gain, and leveling.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023-2024 DND Text Adventure | A game by Jack Sollisch, enhanced with Claude</p>
+        <p class="small">Created for CSC-134 | <a href="credits.html">View Credits</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
